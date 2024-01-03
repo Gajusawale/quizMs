@@ -1,0 +1,33 @@
+#server:
+#  port: 8083
+#
+#spring:
+#  application:
+#    name: API-GATEWAY
+#
+##  cloud:
+##    gateway:
+##      routes[0]:
+##        id: QUIZ-SERVICE
+##        uri: lb://QUIZ-SERVICE
+##        predicates[0]:
+##          path: /quiz/**
+#
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: QUIZ-SERVICE
+#          uri: lb://QUIZ-SERVICE
+#          predicates:
+#            - Path= "/quiz/**"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
