@@ -18,12 +18,14 @@ public class QuestionController {
     }
 
 
+    @CrossOrigin
     @PostMapping
     public Question createQue(@RequestBody Question question)
     {
         return questionService.create(question);
     }
 
+    @CrossOrigin
     @GetMapping
     public List<Question> getAll()
     {

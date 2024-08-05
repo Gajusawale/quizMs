@@ -1,0 +1,27 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql-container:3306/microservices
+    username: root1
+    password: root1
+
+  application:
+    name: QUESTION-SERVICE
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  config:
+    import: optional:configserver:http://configserver:8080
+
+eureka:
+  instance:
+    client:
+      serverUrl:
+        defaultZone: http://localhost:8761
+
+

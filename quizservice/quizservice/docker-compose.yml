@@ -1,0 +1,92 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root1
+      MYSQL_DATABASE: microservices
+      MYSQL_USER: root1
+      MYSQL_PASSWORD: root1
+    ports:
+      - "3308:3308"
+    networks:
+      - mynetwork
+
+#Service_Registry Service
+  serviceregistry-app:
+    image: gajusawale/serviceregistry:latest
+    container_name: serviceregistry
+    depends_on:
+      - mysql
+      - config-app
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8761:8761"
+    networks:
+      - mynetwork
+
+
+  #Quiz Service
+  quiz-app:
+    image: gajusawale/quiz:latest
+    container_name: quizapp
+    depends_on:
+      - mysql
+      - serviceregistry-app
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8088:8088"
+    networks:
+      - mynetwork
+
+  #Question Service
+  question-app:
+    image: gajusawale/question:latest
+    container_name: questionapp
+    depends_on:
+      - serviceregistry-app
+
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8082:8082"
+    networks:
+      - mynetwork
+
+
+  #Service_Registry Service
+  apigateway-app:
+    image: gajusawale/apigateway:latest
+    container_name: apigateway
+    depends_on:
+      - serviceregistry-app
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+
+
+
+
+  #Config Service
+  config-app:
+    image: gajusawale/configserver:latest
+    container_name: configserver
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8084:8084"
+    networks:
+      - mynetwork
+
+
+networks:
+  mynetwork:
+    driver: bridge

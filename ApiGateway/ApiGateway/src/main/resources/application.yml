@@ -1,18 +1,18 @@
-#server:
-#  port: 8083
-#
-#spring:
-#  application:
-#    name: API-GATEWAY
-#
-##  cloud:
-##    gateway:
-##      routes[0]:
-##        id: QUIZ-SERVICE
-##        uri: lb://QUIZ-SERVICE
-##        predicates[0]:
-##          path: /quiz/**
-#
+server:
+  port: 8083
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes[0]:
+        id: QUIZ-SERVICE
+        uri: lb://QUIZ-SERVICE
+        predicates[0]:
+          path: /quiz/**
+
 #  cloud:
 #    gateway:
 #      routes:

@@ -1,0 +1,62 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservices
+    username: root
+    password: root
+
+
+  application:
+    name: Quiz-Service
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  config:
+    import: optional:configserver:http://localhost:8080
+
+
+eureka:
+  instance:
+    client:
+      serverUrl:
+        defaultZone: http://51.20.65.22:8761/
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
+
+    shutdown:
+      enabled: true
+
+  info:
+    env:
+      enabled: true
+
+#  tracing:
+#    sampling:
+#      probability: 1.0
+
+info:
+  app:
+    name: "Quiz-Service"
+    description: "microservice for quiz"
+    version: 1.0.0
+
+
+
+
+
+
+
+
